@@ -13,8 +13,8 @@ nxx="${nx}x"
 
 mkdir -p "${nx%/*}"
 
-expect 0 mkdir ${nx} 0755
-expect dir,0755 stat ${nx} type,mode
+expect 0 mkdir ${nx} 0700
+expect dir,0700 stat ${nx} type,mode
 expect 0 rmdir ${nx}
 expect ENOENT rmdir ${nx}
 expect ENAMETOOLONG rmdir ${nxx}
