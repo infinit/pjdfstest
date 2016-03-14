@@ -13,9 +13,9 @@ nxx="${nx}x"
 
 mkdir -p "${nx%/*}"
 
-expect 0 open ${nx} O_CREAT 0642
-expect regular,0642 stat ${nx} type,mode
+expect 0 open ${nx} O_CREAT 0600
+expect regular,0600 stat ${nx} type,mode
 expect 0 unlink ${nx}
-expect ENAMETOOLONG open ${nxx} O_CREAT 0642
+expect ENAMETOOLONG open ${nxx} O_CREAT 0600
 
 rm -rf "${nx%%/*}"

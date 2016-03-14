@@ -6,13 +6,17 @@ desc="open returns ENOTDIR if a component of the path prefix is not a directory"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..22"
+echo "1..6"
 
 n0=`namegen`
 n1=`namegen`
 
+# XXX: fifo
+# XXX: block
+# XXX: char
+# XXX: socket
 expect 0 mkdir ${n0} 0755
-for type in regular fifo block char socket; do
+for type in regular; do #  fifo block char socket
 	create_file ${type} ${n0}/${n1}
 	expect ENOTDIR open ${n0}/${n1}/test O_RDONLY
 	expect ENOTDIR open ${n0}/${n1}/test O_CREAT 0644
