@@ -6,11 +6,11 @@ desc="symlink returns EEXIST if the name2 argument already exists"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..21"
+echo "1..9"
 
 n0=`namegen`
 
-for type in regular dir fifo block char socket symlink; do
+for type in regular dir symlink; do # fifo block char socket
 	create_file ${type} ${n0}
 	expect EEXIST symlink test ${n0}
 	if [ "${type}" = "dir" ]; then

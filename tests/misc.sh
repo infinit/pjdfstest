@@ -136,8 +136,9 @@ namegen_len()
 #     Maximum number of bytes in a filename (not including terminating null).
 namegen_max()
 {
-	name_max=`${fstest} pathconf . _PC_NAME_MAX`
-	namegen_len ${name_max}
+#	name_max=`${fstest} pathconf . _PC_NAME_MAX`
+#	namegen_len ${name_max}
+        namegen_len `echo 255`
 }
 
 # POSIX:
@@ -145,7 +146,7 @@ namegen_max()
 #     Maximum number of bytes in a pathname, including the terminating null character.
 dirgen_max()
 {
-	name_max=`${fstest} pathconf . _PC_NAME_MAX`
+	name_max=`echo 255` # `${fstest} pathconf . _PC_NAME_MAX`
 	complen=$((name_max/2))
 	path_max=`${fstest} pathconf . _PC_PATH_MAX`
 	# "...including the terminating null character."
