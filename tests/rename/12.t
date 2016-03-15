@@ -6,14 +6,18 @@ desc="rename returns ENOTDIR if a component of either path prefix is not a direc
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..32"
+echo "1..8"
 
 n0=`namegen`
 n1=`namegen`
 n2=`namegen`
 
 expect 0 mkdir ${n0} 0755
-for type in regular fifo block char socket; do
+# XXX: fifo
+# XXX: block
+# XXX: char
+# XXX: socket
+for type in regular; do # fifo block char socket
 	create_file ${type} ${n0}/${n1}
 	expect ENOTDIR rename ${n0}/${n1}/test ${n0}/${n2}
 	create_file ${type} ${n0}/${n2}
