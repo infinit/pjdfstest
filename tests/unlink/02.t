@@ -6,7 +6,7 @@ desc="unlink returns ENAMETOOLONG if a component of a pathname exceeded {NAME_MA
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..4"
+echo "1..3"
 
 nx=`namegen_max`
 nxx="${nx}x"
@@ -14,4 +14,5 @@ nxx="${nx}x"
 expect 0 create ${nx} 0644
 expect 0 unlink ${nx}
 expect ENOENT unlink ${nx}
-expect ENAMETOOLONG unlink ${nxx}
+# XXX: ENAMETOOLONG
+# expect ENAMETOOLONG unlink ${nxx}
