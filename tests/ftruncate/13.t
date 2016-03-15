@@ -1,5 +1,5 @@
 #!/bin/sh
-# $FreeBSD: head/tools/regression/pjdfstest/tests/truncate/13.t 211352 2010-08-15 21:24:17Z pjd $
+# $FreeBSD: head/tools/regression/pjdfstest/tests/ttruncate/13.t 211352 2010-08-15 21:24:17Z pjd $
 
 desc="ftruncate returns EINVAL if the length argument was less than 0"
 
