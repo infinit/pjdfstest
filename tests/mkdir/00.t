@@ -31,10 +31,10 @@ test_check $time -lt $mtime
 ctime=`${fstest} stat ${n0} ctime`
 test_check $time -lt $ctime
 mtime=`${fstest} stat . mtime`
-# XXX: Matthieu
+# XXX: Matthieu (mtime).
 # test_check $time -lt $mtime
 ctime=`${fstest} stat . ctime`
-# XXX: Matthieu
+# XXX: Matthieu (mtime).
 # test_check $time -lt $ctime
 expect 0 rmdir ${n0}
 

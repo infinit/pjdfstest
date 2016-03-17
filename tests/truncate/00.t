@@ -35,7 +35,7 @@ ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 truncate ${n0} 123
 ctime2=`${fstest} stat ${n0} ctime`
-# XXX: Matthieu.
+# XXX: Matthieu (ctime).
 # test_check $ctime1 -lt $ctime2
 expect 0 unlink ${n0}
 

@@ -21,9 +21,10 @@ expect 0 mkdir ${n0}/${n1} 0755
 time=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 rmdir ${n0}/${n1}
-# XXX: Matthieu.
 mtime=`${fstest} stat ${n0} mtime`
+# XXX: Matthieu (mtime).
 # test_check $time -lt $mtime
 ctime=`${fstest} stat ${n0} ctime`
+# XXX: Matthieu (ctime).
 # test_check $time -lt $ctime
 expect 0 rmdir ${n0}

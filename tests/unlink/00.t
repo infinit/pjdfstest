@@ -35,7 +35,7 @@ for type in regular symlink; do # fifo block char socket
     sleep 1
     expect 0 unlink ${n1}
     ctime2=`${fstest} lstat ${n0} ctime`
-    # XXX: Matthieu.
+    # XXX: Matthieu (ctime).
     # test_check $ctime1 -lt $ctime2
     expect 0 unlink ${n0}
 done

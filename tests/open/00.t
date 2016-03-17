@@ -61,12 +61,12 @@ ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 open ${n0} O_WRONLY,O_TRUNC
 mtime2=`${fstest} stat ${n0} mtime`
-# XXX: Matthieu.
+# XXX: Matthieu (mtime).
 # test_check $mtime1 -lt $mtime2
 ctime2=`${fstest} stat ${n0} ctime`
-# XXX: Matthieu.
+# XXX: Matthieu (ctime).
 # test_check $ctime1 -lt $ctime2
-# XXX: Matthieu.
+# XXX: Matthieu (Important, size).
 # expect 0 stat ${n0} size
 expect 0 unlink ${n0}
 

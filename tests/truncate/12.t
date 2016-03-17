@@ -10,7 +10,7 @@ echo "1..2"
 
 n0=`namegen`
 
-# XXX: Matthieu.
+# XXX: Matthieu (Important, truncate).
 # expect 0 create ${n0} 0644
 # r=`${fstest} truncate ${n0} 999999999999999 2>/dev/null`
 # case "${r}" in

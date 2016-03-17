@@ -29,11 +29,11 @@ for type in regular; do # fifo block char socket
 	expect ENOENT lstat ${n0} type,mode,nlink
 	expect ${type},${inode},0600,1 lstat ${n1} type,inode,mode,nlink
 	expect 0 link ${n1} ${n0}
-        # XXX: Matthieu.
+        # XXX: Matthieu (inode).
 	# expect ${type},${inode},0600,2 lstat ${n0} type,inode,mode,nlink
 	expect ${type},${inode},0600,2 lstat ${n1} type,inode,mode,nlink
 	expect 0 rename ${n1} ${n2}
-        # XXX: Matthieu.
+        # XXX: Matthieu (inode).
 	# expect ${type},${inode},0600,2 lstat ${n0} type,inode,mode,nlink
 	expect ENOENT lstat ${n1} type,mode,nlink
 	expect ${type},${inode},0600,2 lstat ${n2} type,inode,mode,nlink
@@ -46,7 +46,7 @@ expect dir,0700 lstat ${n0} type,mode
 inode=`${fstest} lstat ${n0} inode`
 expect 0 rename ${n0} ${n1}
 expect ENOENT lstat ${n0} type,mode
-# XXX: Matthieu..
+# XXX: Matthieu (inode).
 # expect dir,${inode},0700 lstat ${n1} type,inode,mode
 expect 0 rmdir ${n1}
 
@@ -55,11 +55,11 @@ rinode=`${fstest} lstat ${n0} inode`
 expect regular,0600 lstat ${n0} type,mode
 expect 0 symlink ${n0} ${n1}
 sinode=`${fstest} lstat ${n1} inode`
-# XXX: Matthieu.
+# XXX: Matthieu (inode).
 # expect regular,${rinode},0600 stat ${n1} type,inode,mode
 expect symlink,${sinode} lstat ${n1} type,inode
 expect 0 rename ${n1} ${n2}
-# XXX: Matthieu.
+# XXX: Matthieu (inode).
 # expect regular,${rinode},0600 stat ${n0} type,inode,mode
 expect ENOENT lstat ${n1} type,mode
 expect symlink,${sinode} lstat ${n2} type,inode
@@ -77,7 +77,7 @@ for type in regular dir symlink; do # fifo block char socket
 	sleep 1
 	expect 0 rename ${n0} ${n1}
 	ctime2=`${fstest} lstat ${n1} ctime`
-        # XXX: Matthieu (works only for dir).
+        # XXX: Matthieu (ctime, works only for dir).
 	# test_check $ctime1 -lt $ctime2
 	if [ "${type}" = "dir" ]; then
 		expect 0 rmdir ${n1}
