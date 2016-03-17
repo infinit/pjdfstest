@@ -186,6 +186,7 @@ enum action {
 	ACTION_READACL,
 #endif
 	ACTION_WRITE,
+        ACTION_NONE = -1,
 };
 
 #define	TYPE_NONE	0x0000
@@ -294,7 +295,7 @@ static struct syscall_desc syscalls[] = {
 	{ "readacl", ACTION_READACL, { TYPE_STRING, TYPE_NONE } },
 #endif
 	{ "write", ACTION_WRITE, { TYPE_DESCRIPTOR, TYPE_STRING, TYPE_NONE } },
-	{ NULL, -1, { TYPE_NONE } }
+	{ NULL, ACTION_NONE, { TYPE_NONE } }
 };
 
 struct flag {
@@ -609,10 +610,10 @@ descriptor_add(int fd)
 
 	ndescriptors++;
 	if (descriptors == NULL) {
-		descriptors = malloc(sizeof(descriptors[0]) * ndescriptors);
+          descriptors = (int*) malloc(sizeof(descriptors[0]) * ndescriptors);
 	} else {
-		descriptors = realloc(descriptors,
-		    sizeof(descriptors[0]) * ndescriptors);
+          descriptors = (int*) realloc(descriptors,
+                                       sizeof(descriptors[0]) * ndescriptors);
 	}
 	assert(descriptors != NULL);
 	descriptors[ndescriptors - 1] = fd;
@@ -668,7 +669,7 @@ call_syscall(struct syscall_desc *scall, char *argv[])
 				if (strcmp(argv[i], "NULL") == 0)
 					args[i].str = NULL;
 				else if (strcmp(argv[i], "DEADCODE") == 0)
-					args[i].str = (void *)0xdeadc0de;
+					args[i].str = (char *)0xdeadc0de;
 				else
 					args[i].str = argv[i];
 			} else if ((scall->sd_args[i] & TYPE_MASK) ==
@@ -1124,7 +1125,7 @@ set_gids(char *gids)
 
 	ngroups = sysconf(_SC_NGROUPS_MAX);
 	assert(ngroups > 0);
-	gidset = malloc(sizeof(*gidset) * ngroups);
+	gidset = (gid_t*) malloc(sizeof(*gidset) * ngroups);
 	assert(gidset != NULL);
 	for (i = 0, g = strtok(gids, ","); g != NULL;
 	    g = strtok(NULL, ","), i++) {

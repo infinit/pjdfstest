@@ -11,7 +11,7 @@ def configure(
   global pjdfstest, tests_folder
   cxx_config = drake.cxx.Config(cxx_config)
   cxx_config.define('_GNU_SOURCE')
-  sources = drake.nodes('pjdfstest.c')
+  sources = drake.nodes('pjdfstest.cc')
 
   pjdfstest = drake.cxx.Executable(
     'pjdfstest',
