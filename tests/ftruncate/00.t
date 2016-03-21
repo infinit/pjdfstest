@@ -6,7 +6,7 @@ desc="ftruncate descrease/increase file size"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..14"
+echo "1..16"
 
 n0=`namegen`
 n1=`namegen`
@@ -19,16 +19,14 @@ expect 0 create ${n0} 0644
 expect 0 open ${n0} O_RDWR : ftruncate 0 1234567
 expect 1234567 lstat ${n0} size
 expect 0 open ${n0} O_WRONLY : ftruncate 0 567
-# XXX: Matthieu (Important, size).
-# expect 567 lstat ${n0} size
+expect 567 lstat ${n0} size
 expect 0 unlink ${n0}
 
 dd if=/dev/random of=${n0} bs=12345 count=1 >/dev/null 2>&1
 expect 0 open ${n0} O_RDWR : ftruncate 0 23456
 expect 23456 lstat ${n0} size
 expect 0 open ${n0} O_WRONLY : ftruncate 0 1
-# XXX: Matthieu (Important, size).
-# expect 1 lstat ${n0} size
+expect 1 lstat ${n0} size
 expect 0 unlink ${n0}
 
 # successful ftruncate(2) updates ctime.
