@@ -6,7 +6,7 @@ desc="link creates hardlinks"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..23"
+echo "1..27"
 
 n0=`namegen`
 n1=`namegen`
@@ -30,21 +30,21 @@ for type in regular ; do # fifo block char socket
 	expect ${type},2 lstat ${n1} type,nlink
 
 	expect 0 link ${n1} ${n2}
-        # XXX: Matthieu (nlink) (2 instead of 3).
-	# expect ${type},3 lstat ${n0} type,nlink
+        sleep 2
+	expect ${type},3 lstat ${n0} type,nlink
 	expect ${type},3 lstat ${n1} type,nlink
 	expect ${type},3 lstat ${n2} type,nlink
 
 	expect 0 unlink ${n0}
 	expect ENOENT lstat ${n0} type,mode,nlink,uid,gid
-        # XXX: Matthieu (nlink) (3 instead of 2).
-	# expect ${type},2 lstat ${n1} type,nlink
-	# expect ${type},2 lstat ${n2} type,nlink
+        sleep 2
+	expect ${type},2 lstat ${n1} type,nlink
+	expect ${type},2 lstat ${n2} type,nlink
 
 	expect 0 unlink ${n2}
 	expect ENOENT lstat ${n0} type,mode,nlink,uid,gid
-        # XXX: Matthieu (nlink) (3 instead of 1).
-	# expect ${type},1 lstat ${n1} type,nlink
+        sleep 2
+	expect ${type},1 lstat ${n1} type,nlink
 	expect ENOENT lstat ${n2} type,mode,nlink,uid,gid
 
 	expect 0 unlink ${n1}
