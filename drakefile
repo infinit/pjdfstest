@@ -173,4 +173,4 @@ def configure(
       os.path.abspath(
         inspect.getfile(
           inspect.currentframe())))
-  ) / tests[0].path().dirname().dirname()
+  ) / 'tests'
